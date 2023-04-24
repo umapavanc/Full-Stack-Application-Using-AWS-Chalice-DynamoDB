@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/datatables.min.css">
+    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+    <link rel="stylesheet" href="css/demo.css"> <!-- Demo style -->
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+
+    <script src="js/main.js"></script> <!-- Resource JavaScript -->
+
+
+    <title>AI enabled business cards organizers</title>
+</head>
+
+<body>
+    <div id="preloader"></div>
+    <header class="cd-main-header">
+        <div class="cd-main-header__logo"><a href="#0" style="color:white;font-size:large;"><br>Business cards
+                organizer</a></div>
+
+        <nav class="cd-main-nav js-main-nav">
+            <ul class="cd-main-nav__list js-signin-modal-trigger">
+                <li><a class="cd-main-nav__item cd-main-nav__item--signin" href="index.html" data-signin="logout">Sign out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="cd-intro">
+        <h3>Welcome to a "A full stack serverless intelligent enabled application"</h3>
+    </div>
+    <br>
+
+    <div class="cd-intro">
+        <h1 style="color: black;align-content: center;">View All Leads</h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="data_table center">
+                    <div class="button-group">
+                        <button id="refresh-button" class="btn btn-secondary" onclick="fetchLeads()">
+                            Refresh
+                        </button>
+                        <a id="linkToHome" class="btn btn-primary" style="margin-bottom: 5px;">+ Add new Lead
+                        </a>
+                        <input type="file" id="file-upload">
+	                    <button onclick="uploadCsvToDynamoDB()">Upload</button>
+                        <button id="exportBtn" class="button" >Export</button>
+                        <input type="text" id="searchInput" placeholder="Search...">
+                        <!--<button id="searchBtn">Search</button>-->
+                    </div>
+                    <table id="example" class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th style="color:aliceblue;">Company Name</th>
+                                <th style="color:aliceblue;">Name</th>
+                                <th style="color:aliceblue;">Email Id</th>
+                                <th style="color:aliceblue;">Phone No</th>
+                                <th style="color:aliceblue;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal HTML -->
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header flex-column">
+                        <div class="icon-box">
+                            <i class="material-icons">&#xE5CD;</i>
+                        </div>
+                        <h4 class="modal-title w-100">Are you sure?</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you really want to delete? This process cannot be undone.</p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteLead()">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="leadPageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Submit the Lead</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="cd-signin-modal__form" id="leadDetails">
+                        <p class="cd-signin-modal__fieldset">Name <br><br>
+                            <label
+                                class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace"
+                                for="signup-username"></label>
+                            <input
+                                class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                                name="name" id="username" type="text">
+                        </p>
+
+                        <p class="cd-signin-modal__fieldset">Company Name <br><br>
+                            <label
+                                class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace"
+                                for="companyName"></label>
+                            <input
+                                class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                                name="name" id="companyName" type="text">
+                        </p>
+
+                        <p class="cd-signin-modal__fieldset">Email Id <br><br>
+                            <label
+                                class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                                for="signup-email">Enter E-mail</label>
+                            <input
+                                class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                                name="EMail" id="email" type="email">
+                            <span class="cd-signin-modal__error">Error message here!</span>
+                        </p>
+                        <p class="cd-signin-modal__fieldset">Phone No <br><br>
+                            <label
+                                class="cd-signin-modal__label cd-signin-modal__label-- cd-signin-modal__label--image-replace"
+                                for="signup-Phoneno">Enter Phone NO</label>
+                            <input
+                                class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                                id="Phoneno" type="tel" placeholder="321-456-9876" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                            <span class="cd-signin-modal__error">Error message here!</span>
+                        </p>
+                        <p class="cd-signin-modal__fieldset">Address<br><br>
+                            <label
+                                class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                                for="signup-address">Enter Street Address</label>
+                            <input
+                                class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                                id="address" type="text">
+                            <span class="cd-signin-modal__error">Error message here!</span>
+                        </p>
+                        <p class="cd-signin-modal__fieldset">City<br><br>
+                            <label
+                                class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                                for="city">Enter City</label>
+                            <input
+                                class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                                id="city" type="text">
+                            <span class="cd-signin-modal__error">Error message here!</span>
+                        </p>
+                        <p class="cd-signin-modal__fieldset">Postal Code<br><br>
+                            <label
+                                class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                                for="postalCode">Enter Postal Code</label>
+                            <input
+                                class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                                id="postalCode" type="text">
+                            <span class="cd-signin-modal__error">Error message here!</span>
+                        </p>
+                        <p class="cd-signin-modal__fieldset">Province<br><br>
+                            <label
+                                class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                                for="province">Enter Province</label>
+                            <select
+                                class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                                id="province">
+                                <option value="AB">Alberta</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="NL">Newfoundland and Labrador</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="ON">Ontario</option>
+                                <option value="PE">Prince Edward Island</option>
+                                <option value="QC">Quebec</option>
+                                <option value="SK">Saskatchewan</option>
+                                <option value="NT">Northwest Territories</option>
+                                <option value="NU">Nunavut</option>
+                                <option value="YT">Yukon</option>
+                            </select> <span class="cd-signin-modal__error">Error message here!</span>
+                        </p>
+                        <p class="cd-signin-modal__fieldset">
+                            <input
+                                class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding"
+                                id="uploadLead" type="submit" value="Submit">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/datatables.min.js"></script>
+    <script src="js/pdfmake.min.js"></script>
+    <script src="js/vfs_fonts.js"></script>
+    <script src="js/placeholders.min.js"></script> <!-- polyfill for the HTML5 placeholder attribute -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            init(event, 'viewLeads');
+            fetchLeads();
+        }, false);
+
+        var loader = document.getElementById("preloader")
+        window.addEventListener("load", function () {
+            loader.style.display = "none";
+        })
+    </script>
+    <script>
+        // Add event listener for submit event on form
+        var el = document.getElementById("uploadLead");
+        if (el.addEventListener)
+            el.addEventListener("click", updateLead, false);
+        else if (el.attachEvent)
+            el.attachEvent('onclick', updateLead);
+    </script>
+
+<script>
+// Function to filter table rows based on search input
+// Function to filter table rows based on search input
+function filterTable() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("example");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      // Exclude the header row
+      if (i == 0) {
+        continue;
+      }
+      td = tr[i].getElementsByTagName("td");
+      for (j = 0; j < td.length - 1; j++) {
+        // Exclude the last column with action buttons
+        txtValue = td[j].textContent || td[j].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
+  // Function to export table data to CSV
+  function exportTableToCSV() {
+    var csv = [];
+    var rows = document.querySelectorAll("#example tbody tr");
+    var headers = document.querySelectorAll("#example th");
+    var headerValues = [];
+    for (var i = 0; i < headers.length - 1; i++) {
+      // Exclude the last header with action buttons
+      headerValues.push(headers[i].innerText);
+    }
+    csv.push(headerValues.join(","));
+    for (var i = 0; i < rows.length; i++) {
+      // Only include rows that are visible after filtering
+      if (rows[i].style.display != "none") {
+        var row = [];
+        var cols = rows[i].querySelectorAll("td");
+        for (var j = 0; j < cols.length - 1; j++) {
+          // Exclude the last column with action buttons
+          row.push(cols[j].innerText);
+        }
+        csv.push(row.join(","));
+      }
+    }
+    // Download CSV file
+    var csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "LEADS-data.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click();
+  }
+
+  // Add event listener to search button
+  //var searchBtn = document.getElementById("searchBtn");
+  //searchBtn.addEventListener("click", filterTable);
+
+  // Add event listener to search input for live filtering
+  var searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("input", filterTable);
+
+  // Add event listener to export button
+  var exportBtn = document.getElementById("exportBtn");
+  exportBtn.addEventListener("click", exportTableToCSV);    
+</script>
+<script>
+  
+</script>
+</body>
+
+</html>

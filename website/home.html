@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/main.js"></script> <!-- Resource JavaScript -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+
+    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+
+    <title>AI enabled business cards organizers</title>
+</head>
+
+<body>
+    <div id = "preloader"></div>
+    <header class="cd-main-header">
+        <div class="cd-main-header__logo"><a href="#0" style="color:white;font-size:large;"><br>Business cards
+                organizer</a></div>
+
+        <nav class="cd-main-nav js-main-nav">
+            <ul class="cd-main-nav__list js-signin-modal-trigger">
+                <li><a class="cd-main-nav__item cd-main-nav__item--signin" href="index.html" data-signin="logout">Sign out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="cd-intro">
+        <h1>Welcome to a "A full stack serverless intelligent enabled application"</h1>
+    </div>
+    <br>
+    <div class="cd-signin-modal__container_home">
+        <div class="cd-intro">
+            <h1 style="color: black;align-content: center;">Add New Lead</h1>
+        </div>
+
+        <div class="cd-signin-modal__form" enctype="multipart/form-data">
+            <p class="cd-signin-modal__fieldset">
+                <label
+                    class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                    for="signin-email">Upload Lead</label>
+                <input
+                    class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                    type="file" id="leadImage" name="leadImage"><br><br>
+            </p>
+            <p class="cd-signin-modal__fieldset">
+                <button type="button" class="btn btn-primary" data-toggle="modal" 
+                    data-whatever="@mdo" style="width: 250px;align-content: center;" onclick="uploadAndTranslate()">Upload</button>
+                <a class="btn btn-primary" id="linkToViewLeads" data-signin="signup" type="btn btn-primary"
+                    style="width: 250px;" >Leads</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Submit the Lead</h5>
+                    <div id="view" class="w3-panel w3-white w3-card w3-display-container" style="display:none;">
+                        <div style="float: left;">
+                            <img id="image" width="600" />
+                        </div>
+                    </div>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="cd-signin-modal__form" enctype="multipart/form-data" id = "leadDetails">
+                    <p class="cd-signin-modal__fieldset">Name <br><br>
+                        <label
+                            class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace"
+                            for="signup-username"></label>
+                        <input
+                            class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                            name="name" id="username" type="text">
+                    </p>
+
+                    <p class="cd-signin-modal__fieldset">Company Name <br><br>
+                        <label
+                            class="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace"
+                            for="companyName"></label>
+                        <input
+                            class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                            name="name" id="companyName" type="text">
+                    </p>
+
+                    <p class="cd-signin-modal__fieldset">Email Id <br><br>
+                        <label
+                            class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                            for="signup-email">Enter E-mail</label>
+                        <input
+                            class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                            name="EMail" id="email" type="email">
+                        <span class="cd-signin-modal__error">Error message here!</span>
+                    </p>
+                    <p class="cd-signin-modal__fieldset">Phone No <br><br>
+                        <label
+                            class="cd-signin-modal__label cd-signin-modal__label-- cd-signin-modal__label--image-replace"
+                            for="signup-Phoneno">Enter Phone NO</label>
+                        <input
+                            class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                            id="Phoneno" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                        <span class="cd-signin-modal__error">Error message here!</span>
+                    </p>
+                    <p class="cd-signin-modal__fieldset">Address<br><br>
+                        <label
+                            class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                            for="signup-address">Enter Street Address</label>
+                        <input
+                            class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                            id="address" type="text">
+                        <span class="cd-signin-modal__error">Error message here!</span>
+                    </p>
+                    <p class="cd-signin-modal__fieldset">City<br><br>
+                        <label
+                            class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                            for="city">Enter City</label>
+                        <input
+                            class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                            id="city" type="text">
+                        <span class="cd-signin-modal__error">Error message here!</span>
+                    </p>
+                    <p class="cd-signin-modal__fieldset">Postal Code<br><br>
+                        <label
+                            class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                            for="postalCode">Enter Postal Code</label>
+                        <input
+                            class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                            id="postalCode" type="text">
+                        <span class="cd-signin-modal__error">Error message here!</span>
+                    </p>
+                    <p class="cd-signin-modal__fieldset">Province<br><br>
+                        <label
+                            class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                            for="province">Enter Province</label>
+                        <select
+                            class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
+                            id = "province">
+                            <option value="AB">Alberta</option>
+                            <option value="BC">British Columbia</option>
+                            <option value="MB">Manitoba</option>
+                            <option value="NB">New Brunswick</option>
+                            <option value="NL">Newfoundland and Labrador</option>
+                            <option value="NS">Nova Scotia</option>
+                            <option value="ON">Ontario</option>
+                            <option value="PE">Prince Edward Island</option>
+                            <option value="QC">Quebec</option>
+                            <option value="SK">Saskatchewan</option>
+                            <option value="NT">Northwest Territories</option>
+                            <option value="NU">Nunavut</option>
+                            <option value="YT">Yukon</option>
+                        </select> <span class="cd-signin-modal__error">Error message here!</span>
+                    </p>
+                    <p class="cd-signin-modal__fieldset">
+                        <input
+                            class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding"
+                            id="uploadLead" type="submit" value="Submit">
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--div class="cd-signin-modal__block"> < sign up form >
+    <form class="cd-signin-modal__form">
+        <p class="cd-signin-modal__fieldset">
+        <p class="w3-opacity"><b>Upload</b></p>
+        <input id="file" type="file" name="file" accept="image/*"/>
+        <input class="w3-button w3-blue-grey" type="submit" value="Upload"
+               onclick="uploadAndTranslate()"/>
+            </p>
+        <div id="view" class="w3-panel w3-white w3-card w3-display-container"
+             style="display:none;">
+            <div style="float: left;">
+                <img id="image" width="600"/>
+            </div>
+        </div>
+    </form>
+    </div-->
+
+
+    <script src="js/placeholders.min.js"></script> <!-- polyfill for the HTML5 placeholder attribute -->
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+    <script>
+        // Add event listener for DOMContentLoaded event
+        document.addEventListener('DOMContentLoaded', function() {
+			init(event, 'home');
+		});
+        // Add event listener for submit event on form
+        const myForm = document.getElementById('leadDetails');
+        myForm.addEventListener('submit', addLead);
+
+        var loader = document.getElementById("preloader")
+        window.addEventListener("load", function () {
+            loader.style.display = "none";
+        })
+    </script>
+</body>
+
+</html>

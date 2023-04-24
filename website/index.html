@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+  	
+	<title>AI enabled business cards organizers</title>
+</head>
+<body>
+	<div id = "preloader"></div>
+	<header class="cd-main-header">
+		<div class="cd-main-header__logo"><a href="#0" style="color:white;font-size:large;"><br>Business cards organizer</a></div>
+
+		<nav class="cd-main-nav js-main-nav">
+			<ul class="cd-main-nav__list js-signin-modal-trigger">
+				<!-- inser more links here -->
+				<li><a class="cd-main-nav__item cd-main-nav__item--signin" href="index.html" data-signin="login">Sign in</a></li>
+				<li><a class="cd-main-nav__item cd-main-nav__item--signup" href="sign_up.html" data-signin="signup">Sign up</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="cd-intro">
+		<h1>Welcome to a "A full stack serverless intelligent enabled application"</h1>
+	</div>
+	<br>
+    <div class="cd-signin-modal__container_home">
+		<div class="cd-intro">
+            <h1 style="color: black;align-content: center;">Log in</h1>
+        </div>
+    
+		<div class="cd-signin-modal__form">
+			<p class="cd-signin-modal__fieldset">
+				<label class="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace" for="signin-email">E-mail</label>
+				<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-email" type="email" placeholder="E-mail">
+				<span class="cd-signin-modal__error">Error message here!</span>
+			</p>
+
+			<p class="cd-signin-modal__fieldset">
+				<label class="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace" for="signin-password">Password</label>
+				<input class="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border" id="signin-password" type="text"  placeholder="Password">
+				<a href="#0" class="cd-signin-modal__hide-password js-hide-password">Hide</a>
+				<span class="cd-signin-modal__error">Error message here!</span>
+			</p>
+			<p class="cd-signin-modal__fieldset">
+				<input type="checkbox" id="remember-me" class="cd-signin-modal__input " onclick="isChecked()">
+				<label for="remember-me">Remember me</label>
+			</p>
+			<p class="cd-signin-modal__fieldset">
+				<input class="cd-signin-modal__input cd-signin-modal__input--full-width" type="submit" value="Login" onclick="signIn()">
+			</p>
+		</div>
+		
+		<p class="cd-signin-modal__bottom-message js-signin-modal-trigger"><a href="#0" data-signin="reset">Forgot your password?</a></p>
+	</div> <!-- cd-signin-modal__block -->
+	</div>
+
+	
+	<!--script type = "text/javascript">
+		   // Form validation code will come here.
+		   function validate() {
+		   
+			  if( document.myForm.EMail.value == "" ) {
+				 alert( "Please provide your Email!" );
+				 document.myForm.EMail.focus() ;
+				 return false;
+			  }
+			  if( document.myForm.Zip.value == "" || isNaN( document.myForm.Zip.value ) ||
+				 document.myForm.Zip.value.length != 6 ) {
+				 
+				 alert( "Please provide a zip in the format ######." );
+				 document.myForm.Zip.focus() ;
+				 return false;
+			  }
+			  if( document.myForm.Country.value == "-1" ) {
+				 alert( "Please provide your country!" );
+				 return false;
+			  }
+			  return( true );
+		   }
+		>
+	 </script>
+	 <script type = "text/javascript">
+		<
+		   function validateEmail() {
+			  var emailID = document.myForm.EMail.value;
+			  atpos = emailID.indexOf("@");
+			  dotpos = emailID.lastIndexOf(".");
+			  
+			  if (atpos < 1 || ( dotpos - atpos < 2 )) {
+				 alert("Please enter correct email ID")
+				 document.myForm.EMail.focus() ;
+				 return false;
+			  }
+			  return( true );
+		   }
+		>
+	 </script -->
+<script src="js/placeholders.min.js"></script> <!-- polyfill for the HTML5 placeholder attribute -->
+<script src="js/main.js"></script> <!-- Resource JavaScript -->
+<script>
+	var loader = document.getElementById("preloader")
+	window.addEventListener("load", function(){
+		loader.style.display = "none";
+	})
+</script>
+</body>
+</html>
